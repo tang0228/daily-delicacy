@@ -1,0 +1,28 @@
+.ant-layout-header {
+    height: 50px;
+    line-height: 50px;
+    .header {
+        .ant-breadcrumb {
+            display: inline-block;
+        }
+        .user {
+            text-align: center;
+            margin-right: 20px;
+            float: right;
+            li {
+                cursor: pointer;
+                padding: 0 20px;
+            }
+            li:not(:nth-child(1)) {
+                display: none;
+            }
+            &:hover li:not(:nth-child(1)) {
+                display: block;
+                font-weight: 700;
+                background-color: #eee;
+            }
+
+        }
+    }
+    
+}
