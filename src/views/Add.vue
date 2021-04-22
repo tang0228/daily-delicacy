@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-
+.add-container {
+  margin-left: 180px;
+}
 </style>

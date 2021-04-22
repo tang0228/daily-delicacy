@@ -1,14 +1,20 @@
 <template>
   <div id="app">
-    <Layout>
-    </Layout>
+    <Menu />
+
+    <Header />
+
+    <RouterView />
+
   </div>
 </template>
 <script>
-import Layout from "@/components/Layout.vue";
+import Menu from "@/components/Menu.vue";
+import Header from "@/components/Header.vue";
 export default {
   components: {
-    Layout,
+    Menu,
+    Header
   },
 };
 </script>
