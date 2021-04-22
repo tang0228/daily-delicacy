@@ -1,3 +1,5 @@
+
+// 折叠栏的闭合
 export default {
     namespaced: true,
     state: {

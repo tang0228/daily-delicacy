@@ -9,6 +9,12 @@
       <a-form-model-item has-feedback label="邮箱" prop="email">
         <a-input v-model="loginForm.email" />
       </a-form-model-item>
+      <a-form-model-item has-feedback label="获取" prop="">
+        <a-button @click="handleCode">验证码</a-button>
+      </a-form-model-item>
+      <a-form-model-item has-feedback label="验证码" prop="code">
+        <a-input v-model="loginForm.code" />
+      </a-form-model-item>
       <a-form-model-item has-feedback label="密码" prop="password">
         <a-input
           v-model="loginForm.password"
@@ -18,16 +24,13 @@
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
         <a-button type="primary" @click="submitForm('loginForm')">
-          登录
+          找回密码
         </a-button>
         <a-button style="margin-left: 10px" @click="resetForm('loginForm')">
           重置
         </a-button>
       </a-form-model-item>
-      <div class="nav">
-        <RouterLink to="/logon">没有账号，去注册</RouterLink>
-        <RouterLink to="/findBack">找回密码</RouterLink>
-      </div>
+      <RouterLink to="/login">去登录</RouterLink>
     </a-form-model>
   </div>
 </template>
@@ -57,6 +60,7 @@ export default {
       loginForm: {
         email: "",
         password: "",
+        code: ""
       },
       rules: {
         email: [{ validator: checkEmail, trigger: "change" }],
@@ -72,18 +76,11 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          user.login(this.loginForm).then(
-            (resp) => {
-              // 登录成功并且把用户信息存入cookie
-              this.$message.success(resp.msg);
-              // 并且跳到首页
-              this.$router.push("/home", () =>{});
-              this.$store.dispatch("user/setUser", resp.data);
-            },
-            (err) => {
-              this.$message.error(err);
-            }
-          );
+          user.findBack(this.loginForm).then((resp) => {
+            this.$message.success(resp.msg);
+          }, err => {
+            this.$message.error(err);
+          });
           return true;
         } else {
           this.$message.error("邮箱或密码输入错误");
@@ -94,19 +91,23 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    handleCode() {
+        user.getCode({email: this.loginForm.email}).then(resp => {
+            this.$message.success(resp.msg);
+        })
+    }
   },
 };
 </script>
 
 <style scoped lang="less">
+body {
+  overflow-y: hidden;
+}
 .login-container {
   margin: 50px auto;
   border: 1px solid #eee;
   width: 600px;
   padding: 50px 10px 0;
-}
-.nav {
-  display: flex;
-  justify-content: space-between;
 }
 </style>

@@ -12,8 +12,8 @@
       <a-breadcrumb-item><a href="">Application Center</a></a-breadcrumb-item>
     </a-breadcrumb>
     <ul class="user-info">
-      <li>欢迎您，tangyuanqing</li>
-      <li>退出</li>
+      <li>欢迎您，{{$store.state.user.user.username}}</li>
+      <li @click="handleLogout">退出</li>
     </ul>
   </div>
 </template>
@@ -26,8 +26,12 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$store.dispatch("collapsed/changeCollapsed")
+      this.$store.dispatch("collapsed/changeCollapsed");
     },
+    handleLogout() {
+      this.$store.dispatch("user/setLogout")
+      this.$router.push("/login");
+    }
   },
 };
 </script>
