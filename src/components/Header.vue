@@ -1,28 +1,33 @@
 <template>
-  <div class="header-container" :class="{ml: $store.state.collapsed.collapsed}">
+  <div class="header-container" :class="{ml: collapsed}">
     <a-button
       type="primary"
       style="margin-bottom: 16px"
       @click="handleClick"
     >
-      <a-icon :type="$store.state.collapsed.collapsed ? 'menu-unfold' : 'menu-fold'" />
+      <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
     </a-button>
     <a-breadcrumb>
-      <a-breadcrumb-item>Home</a-breadcrumb-item>
-      <a-breadcrumb-item><a href="">Application Center</a></a-breadcrumb-item>
+      <a-breadcrumb-item>首页</a-breadcrumb-item>
+      <a-breadcrumb-item><a href="">统计</a></a-breadcrumb-item>
     </a-breadcrumb>
     <ul class="user-info">
-      <li>欢迎您，{{$store.state.user.user.username}}</li>
+      <li>欢迎您，{{user.username}}</li>
       <li @click="handleLogout">退出</li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
     };
+  },
+  computed: {
+    ...mapState("user", ["user"]),
+    ...mapState("collapsed", ["collapsed"])
   },
   methods: {
     handleClick() {
