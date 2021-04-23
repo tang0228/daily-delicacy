@@ -6,7 +6,7 @@ import FindBack from "@/views/FindBack.vue";
 
 export default [
     {
-        path: "/home",
+        path: "/",
         name: "home",
         component: Home,
         meta: {

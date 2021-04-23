@@ -120,15 +120,16 @@ export default {
       this.$refs[formName].resetFields();
     },
     handleCode() {
-      console.log(this.registerForm)
+     
       user.getCode({email:this.registerForm.email}).then((resp) => {
-        this.$message.success("获取验证码成功"+resp);
+        this.$message.success("获取验证码成功"+resp.msg);
       });
     },
     handleChange(e) {
       this.registerForm.role = e.target.checked ? "admin" : "customer";
     },
   },
+  
 };
 </script>
 

@@ -77,7 +77,7 @@ export default {
               // 登录成功并且把用户信息存入cookie
               this.$message.success(resp.msg);
               // 并且跳到首页
-              this.$router.push("/home", () =>{});
+              this.$router.push("/");
               this.$store.dispatch("user/setUser", resp.data);
             },
             (err) => {
