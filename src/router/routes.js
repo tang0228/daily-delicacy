@@ -2,7 +2,6 @@ import Home from "@/views/home/Home.vue";
 import Login from "@/views/entry/Login.vue";
 import Logon from "@/views/entry/Logon.vue";
 import FindBack from "@/views/entry/FindBack.vue";
-import Statistics from "@/components/statistics/Statistics.vue";
 export const asyncRouterMap = [
     {
         path: '/product',
@@ -18,7 +17,7 @@ export const asyncRouterMap = [
             {
                 path: "list",
                 name: "productList",
-                component: () => import("@/views/product/ProductList.vue"),
+                component: () => import("@/components/productList/ProductList.vue"),
                 meta: {
                     title: "商品列表",
                     hidden: false,
@@ -69,7 +68,7 @@ export const routes = [
             {
                 path: "/home",
                 name: "index",
-                component: Statistics,
+                component: () => import("@/components/statistics/Statistics.vue"),
                 meta: {
                     title: "统计",
                     hidden: false,

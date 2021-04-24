@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@/store";
 const ins = axios.create({
     baseURL: "https://mallapi.duyiedu.com/"
 });
@@ -6,7 +7,18 @@ const ins = axios.create({
 
 // 拦截请求
 ins.interceptors.request.use(config => {
-    return config;
+    console.log(config)
+    if(config.url.includes("/passport")) {
+        return config;
+    }else {
+        return {
+            ...config,
+            params: {
+                ...config.params,
+                appkey: store.state.user.user.appkey
+            }
+        }
+    }
 }, err => {
     return Promise.reject(err);
 })

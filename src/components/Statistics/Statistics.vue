@@ -8,7 +8,7 @@
 
 <script>
 import Card from "./Card.vue";
-import Chart from './Chart.vue';
+import Chart from '@/components/statistics/Chart.vue';
 export default {
   components: {
     Card,
