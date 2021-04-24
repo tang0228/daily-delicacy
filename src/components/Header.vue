@@ -57,10 +57,15 @@ export default {
     margin-left: 20px;
   }
   .user-info {
+    position: relative;
     float: right;
     text-align: center;
     li:not(:nth-child(1)) {
       display: none;
+      position: absolute;
+      width: 100%;
+      top: 50px;
+      z-index: 10;
     }
     li {
       padding: 0 20px;
@@ -69,7 +74,8 @@ export default {
     &:hover li:not(:nth-child(1)) {
       display: block;
       font-weight: 700;
-      background-color: #eee;
+      background-color: #1890ff;
+      color: #fff;
     }
   }
 }

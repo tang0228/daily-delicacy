@@ -7,19 +7,11 @@
       theme="dark"
       :inline-collapsed="collapsed"
     >
-      <a-sub-menu key="sub1">
+      <a-sub-menu v-for="route in $store.state.menu.menuRoutes" :key="route.name">
         <span slot="title"
-          ><a-icon type="mail" /><span>首页</span></span
+          ><a-icon type="mail" /><span>{{route.meta.title}}</span></span
         >
-        <a-menu-item key="1"><a-icon type="line-chart" />统计</a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub2">
-        <span slot="title"
-          ><a-icon type="appstore" /><span>商品</span></span
-        >
-        <a-menu-item key="2"><a-icon type="unordered-list" /> 商品列表 </a-menu-item>
-        <a-menu-item key="3"><a-icon type="plus" /> 添加商品 </a-menu-item>
-        <a-menu-item key="4" class="admin-role" style="padding-left: 80px" v-if="user.role === 'admin'">商品类目管理</a-menu-item>
+        <a-menu-item v-for="children in route.children" :key="children.name"><a-icon type="line-chart" />{{children.meta.title}}</a-menu-item>
       </a-sub-menu>
     </a-menu>
   </div>
