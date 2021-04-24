@@ -6,11 +6,11 @@ import getRoutes from "@/utils/permission";
 
 Vue.use(VueRouter)
 
-
-const router = new VueRouter({
-  mode: 'hash',
+const createRouter = () => new VueRouter({
+  mode: "hash",
   routes
 })
+const router = new createRouter();
 
 let isAddRoutes = false;
 router.beforeEach((to, from, next) => {
@@ -20,8 +20,11 @@ router.beforeEach((to, from, next) => {
       // 加上除了/login是为了解决没有登录过，登录到成功页再次重定向到登陆页面时报错
       if(!isAddRoutes) {
         const menuRoutes = getRoutes(store.state.user.user.role, asyncRouterMap);
-        router.addRoutes(menuRoutes);
-        store.dispatch("menu/setMenuRoutes", routes.concat(menuRoutes)); 
+        store.dispatch("menu/setMenuRoutes", routes.concat(menuRoutes)).then(() => {
+          router.addRoutes(menuRoutes);
+          next();
+
+        }); 
         isAddRoutes = true; 
       }
       return next();

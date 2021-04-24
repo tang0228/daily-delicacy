@@ -8,8 +8,8 @@
       <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
     </a-button>
     <a-breadcrumb>
-      <a-breadcrumb-item>首页</a-breadcrumb-item>
-      <a-breadcrumb-item><a href="">统计</a></a-breadcrumb-item>
+      <a-breadcrumb-item>{{$router.currentRoute.matched[0].meta.title}}</a-breadcrumb-item>
+      <a-breadcrumb-item><a href="">{{$route.meta.title}}</a></a-breadcrumb-item>
     </a-breadcrumb>
     <ul class="user-info">
       <li>欢迎您，{{user.username}}</li>

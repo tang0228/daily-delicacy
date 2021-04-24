@@ -10,53 +10,66 @@ export const asyncRouterMap = [
         component: Home,
         meta: {
             title: "商品",
-            auth: true
+            auth: true,
+            hidden: false,
+            icon: "sketch"
         },
         children: [
             {
-                path: "/list",
+                path: "list",
                 name: "productList",
                 component: () => import("@/views/product/ProductList.vue"),
                 meta: {
-                    title: "商品列表"
+                    title: "商品列表",
+                    hidden: false,
+                    icon: "unordered-list"
                 }
             },
             {
-                path: "/add",
+                path: "add",
                 name: "productAdd",
                 component: () => import("@/views/product/ProductAdd.vue"),
                 meta: {
-                    title: "商品新增"
+                    title: "商品新增",
+                    hidden: false,
+                    icon: "plus"
                 }
             },
             {
-                path: "/category",
+                path: "category",
                 name: "category",
                 component: () => import("@/views/product/Category.vue"),
                 meta: {
-                    title: "商品新增"
+                    title: "商品类目管理",
+                    hidden: false,
+                    icon: "control"
                 }
             }
         ]
     }
 ];
 
-const originRoutes = [
+export const routes = [
     {
         path: "/",
         name: "home",
         component: Home,
         meta: {
             title: "首页",
-            auth: true  // 添加该字段，表示只有用户登录才可以进入
+            auth: true,  // 添加该字段，表示只有用户登录才可以进入
+            hidden: false,
+            icon: "home"
         },
         children: [
             // 只有/匹配，才会进入home的router-view
             {
                 path: "/home",
+                name: "index",
                 component: Statistics,
                 meta: {
-                    title: "统计"
+                    title: "统计",
+                    hidden: false,
+                    icon: "number"
                 }
             }
         ]
@@ -66,7 +79,8 @@ const originRoutes = [
         name: "login",
         component: Login,
         meta: {
-            title: "登录"
+            title: "登录",
+            hidden: true
         }
     },
     {
@@ -74,7 +88,8 @@ const originRoutes = [
         name: "logon",
         component: Logon,
         meta: {
-            title: "注册"
+            title: "注册",
+            hidden: true
         }
     },
     {
@@ -82,10 +97,9 @@ const originRoutes = [
         name: "findBack",
         component: FindBack,
         meta: {
-            title: "找回密码"
+            title: "找回密码",
+            hidden: true
         }
     },
 ];
 
-
-export const routes = originRoutes.filter(r => r.name == "home")
