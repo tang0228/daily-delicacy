@@ -22,7 +22,8 @@ export const asyncRouterMap = [
                 meta: {
                     title: "商品列表",
                     hidden: false,
-                    icon: "unordered-list"
+                    icon: "unordered-list",
+                    auth: true
                 }
             },
             {
@@ -32,7 +33,8 @@ export const asyncRouterMap = [
                 meta: {
                     title: "商品新增",
                     hidden: false,
-                    icon: "plus"
+                    icon: "plus",
+                    auth: true
                 }
             },
             {
@@ -42,7 +44,8 @@ export const asyncRouterMap = [
                 meta: {
                     title: "商品类目管理",
                     hidden: false,
-                    icon: "control"
+                    icon: "control",
+                    auth: true
                 }
             }
         ]
@@ -60,6 +63,7 @@ export const routes = [
             hidden: false,
             icon: "home"
         },
+        redirect: "/home",
         children: [
             // 只有/匹配，才会进入home的router-view
             {
@@ -69,7 +73,8 @@ export const routes = [
                 meta: {
                     title: "统计",
                     hidden: false,
-                    icon: "number"
+                    icon: "number",
+                    auth: true
                 }
             }
         ]

@@ -9,7 +9,7 @@
     </a-button>
     <a-breadcrumb>
       <a-breadcrumb-item>{{$router.currentRoute.matched[0].meta.title}}</a-breadcrumb-item>
-      <a-breadcrumb-item><a href="">{{$route.meta.title}}</a></a-breadcrumb-item>
+      <a-breadcrumb-item><RouterLink :to="{name: $route.name}">{{$route.meta.title}}</RouterLink></a-breadcrumb-item>
     </a-breadcrumb>
     <ul class="user-info">
       <li>欢迎您，{{user.username}}</li>
