@@ -4,12 +4,14 @@ const roleRoutes = {
         {name: "product"},
         {name: "productAdd"},
         {name: "productList"},
+        {name: "productEdit"},
         {name: "category"},
     ],
     "coustomer": [
         {name: "product"},
         {name: "productAdd"},
         {name: "productList"},
+        {name: "productEdit"},
     ]
 }
 

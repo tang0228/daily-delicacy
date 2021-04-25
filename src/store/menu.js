@@ -1,3 +1,4 @@
+// 菜单路由信息
 export default {
     namespaced: true,
     state: {

@@ -7,7 +7,7 @@
       theme="dark"
       :inline-collapsed="collapsed"
     >
-    <template v-for="route in $store.state.menu.menuRoutes"> 
+    <template v-for="route in menuRoutes"> 
       <a-sub-menu
         v-if="!route.meta.hidden"
         :key="route.name"
@@ -17,13 +17,16 @@
             route.meta.title
           }}</span></span
         >
-        <a-menu-item v-for="children in route.children" :key="children.name">
+        <template v-for="children in route.children">
+          <a-menu-item  :key="children.name" v-if="!children.meta.hidden">
           <RouterLink :to="{ name: children.name }"
             ><a-icon :type="children.meta.icon" />{{
               children.meta.title
             }}</RouterLink
           >
         </a-menu-item>
+        </template>
+        
       </a-sub-menu>
     </template>
     </a-menu>
@@ -39,6 +42,15 @@ export default {
   computed: {
     ...mapState("collapsed", ["collapsed"]),
     ...mapState("user", ["user"]),
+    ...mapState("menu",["menuRoutes"])
+  },
+  created() {
+    console.log(this.$router)
+  },
+  watch: {
+    ["$router.currentRoute"]: function() {
+      console.log(1)
+    }
   }
 };
 </script>
