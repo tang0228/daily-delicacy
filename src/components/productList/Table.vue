@@ -1,81 +1,100 @@
 <template>
   <a-table
     :columns="columns"
-    :row-key="record => record.login.uuid"
     :data-source="data"
-    :pagination="pagination"
-    :loading="loading"
-    @change="handleTableChange"
+    :pagination="pageData"
+    @change="handleChange"
   >
-    <template slot="name" slot-scope="name"> {{ name.first }} {{ name.last }} </template>
+    <div slot="name">
+      <a-button>编辑</a-button>
+      <a-button>删除</a-button>
+    </div>
   </a-table>
 </template>
 <script>
-import reqwest from 'reqwest';
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    width: '20%',
+    title: "ID",
+    dataIndex: "id",
+    key: "id",
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
-    width: '20%',
+    title: "标题",
+    dataIndex: "title",
+    key: "title",
+    ellipsis: true,
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
+    title: "描述",
+    dataIndex: "desc",
+    key: "desc",
+    ellipsis: true,
+  },
+  {
+    title: "类目",
+    dataIndex: "categoryName",
+    key: "category",
+    ellipsis: true,
+  },
+  {
+    title: "预售价格",
+    dataIndex: "price",
+    key: "price",
+  },
+  {
+    title: "折扣价格",
+    dataIndex: "price_off",
+    key: "price_off",
+  },
+  {
+    title: "标签",
+    dataIndex: "tags",
+    key: "tags",
+  },
+  {
+    title: "限制购买数量",
+    dataIndex: "inventory",
+    key: "inventory",
+  },
+  {
+    title: "上架状态",
+    dataIndex: "status",
+    key: "status",
+    customRender: (text) => {
+      return text === 1 ? "上架" : "下架";
+    },
+  },
+  {
+    title: "操作",
+    dataIndex: "operation",
+    key: "operation",
+    width: 200,
+    scopedSlots: { customRender: "name" },
   },
 ];
 
 export default {
+  props: ["tableData", "pageData"],
   data() {
     return {
-      data: [],
-      pagination: {},
-      loading: false,
       columns,
     };
   },
-  mounted() {
-    this.fetch();
+  computed: {
+    data() {
+      return this.tableData.map((it) => {
+        return {
+          ...it,
+          key: it.id,
+        };
+      });
+    },
   },
   methods: {
-    handleTableChange(pagination, filters, sorter) {
-      console.log(pagination);
-      const pager = { ...this.pagination };
-      pager.current = pagination.current;
-      this.pagination = pager;
-      this.fetch({
-        results: pagination.pageSize,
-        page: pagination.current,
-        sortField: sorter.field,
-        sortOrder: sorter.order,
-        ...filters,
-      });
-    },
-    fetch(params = {}) {
-      console.log('params:', params);
-      this.loading = true;
-      reqwest({
-        url: 'https://randomuser.me/api',
-        method: 'get',
-        data: {
-          results: 10,
-          ...params,
-        },
-        type: 'json',
-      }).then(data => {
-        const pagination = { ...this.pagination };
-        // Read total count from server
-        // pagination.total = data.totalCount;
-        pagination.total = 200;
-        this.loading = false;
-        this.data = data.results;
-        this.pagination = pagination;
-      });
-    },
-  },
+    handleChange(page) {
+      this.$emit("pageChange", page);
+    }
+  }
 };
 </script>
+

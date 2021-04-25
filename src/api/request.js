@@ -4,10 +4,8 @@ const ins = axios.create({
     baseURL: "https://mallapi.duyiedu.com/"
 });
 
-
 // 拦截请求
 ins.interceptors.request.use(config => {
-    console.log(config)
     if(config.url.includes("/passport")) {
         return config;
     }else {

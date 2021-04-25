@@ -18,7 +18,7 @@
           :allowClear="true"
         >
           <a-select-option
-            v-for="cl in categoryList"
+            v-for="cl in category"
             :key="cl.id"
             :value="cl.id"
             >{{ cl.name }}</a-select-option
@@ -29,25 +29,21 @@
         <a-button type="primary" html-type="submit"> 搜索 </a-button>
       </a-form-model-item>
     </a-form-model>
-    <a-button class="add-btn">新增商品</a-button>
+    <a-button class="add-btn">
+      <RouterLink :to="{name: 'productAdd'}">新增商品 </RouterLink>
+    </a-button>
   </div>
 </template>
 <script>
-import category from "@/api/category";
 export default {
+  props: ["category"],
   data() {
     return {
       searchForm: {
         searchWord: "",
         category: "",
-      },
-      categoryList: [],
+      }
     };
-  },
-  mounted() {
-    category.getAllCategory().then((resp) => {
-      this.categoryList = resp.data.data;
-    });
   },
   methods: {
     handleSubmit() {
@@ -62,7 +58,7 @@ export default {
 
 <style scoped lang="less">
 .search-container {
-  margin-top: 15px;
+  margin: 15px 0;
   display: flex;
   justify-content: space-between;
   .ant-form {
