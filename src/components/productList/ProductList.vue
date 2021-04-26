@@ -87,7 +87,7 @@ export default {
     removeProduct(record) {
         this.$confirm({
         title: '确认删除',
-        content: () => <div style="color:red;">`确认删除标题为${record.title}`的商品吗</div>,
+        content: () => <div style="color:red;">确认删除标题为${record.title}的商品吗？</div>,
         onOk: () => {
           product.deleteProduct({
               id: record.id

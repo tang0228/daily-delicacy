@@ -44,10 +44,10 @@
           <img alt="example" style="width: 100%" :src="previewImage" />
         </a-modal>
       </a-form-model-item>
-      <a-form-model-item label="是否上架">
-        <a-checkbox @change="onChange">上架</a-checkbox>
+      <a-form-model-item :wrapper-col="{ span: 20 }">
+        <a-checkbox>是否上架</a-checkbox>
       </a-form-model-item>
-      <a-form-model-item label="操作">
+      <a-form-model-item :wrapper-col="{ span: 20 }">
         <a-button @click="prev">上一步</a-button>
         <a-button type="primary" @click="submit">完成</a-button>
       </a-form-model-item>
@@ -74,6 +74,19 @@ export default {
       fileList: [],
     };
   },
+  created() {
+    //   如果有图片
+    if (this.form.images.length > 0) {
+      this.fileList = this.form.images.map((item, index) => {
+        return {
+          uid: index,
+          name: `image-${index}.png`,
+          status: "done",
+          url: item,
+        };
+      });
+    }
+  },
   methods: {
     prev() {
       this.$emit("prev");
@@ -88,7 +101,6 @@ export default {
         }
       });
     },
-    onChange() {},
     async handlePreview(file) {
       if (!file.url && !file.preview) {
         file.preview = await getBase64(file.originFileObj);

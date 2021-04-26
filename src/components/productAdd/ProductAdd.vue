@@ -4,9 +4,14 @@
       <a-step v-for="item in steps" :key="item.title" :title="item.title" />
     </a-steps>
     <div class="steps-content">
-      <BasicInfo @next="next" v-if="current === 0" :form="form"/>
+      <BasicInfo @next="next" v-if="current === 0" :form="form" />
 
-      <SaleInfo @prev="prev" v-else-if="current === 1" :form="form" @submit="submit" />
+      <SaleInfo
+        @prev="prev"
+        v-else-if="current === 1"
+        :form="form"
+        @submit="submit"
+      />
     </div>
   </div>
 </template>
@@ -14,7 +19,7 @@
 <script>
 import BasicInfo from "./BasicInfo.vue";
 import SaleInfo from "./SaleInfo.vue";
-import porduct from "@/api/product";
+import product from "@/api/product";
 export default {
   components: {
     BasicInfo,
@@ -43,16 +48,24 @@ export default {
         {
           title: "填写商品销售信息",
           content: "Second-content",
-        }, 
+        },
       ],
     };
+  },
+  created() {
+    if (this.$route.params.id) {
+      const id = this.$route.params.id;
+      product.getProductDetail(id).then((resp) => {
+        this.form = resp.data;
+      });
+    }
   },
   methods: {
     next(form) {
       this.form = {
         ...this.form,
-        ...form
-      }
+        ...form,
+      };
       this.current++;
     },
     prev() {
@@ -61,15 +74,25 @@ export default {
     submit(form) {
       this.form = {
         ...this.form,
-        ...form
+        ...form,
       };
-      porduct.addProduct(this.form).then(() => {
-        this.$message.success("新增成功");
-        this.$router.push({
-          name: "productList"
-        })
-      })
-
+      if (this.$route.params.id) {
+        // 编辑
+        product.editProduct(this.form).then(() => {
+          this.$message.success("编辑成功");
+          this.$router.push({
+            name: "productList",
+          });
+        });
+      } else {
+        // 新增
+        product.addProduct(this.form).then(() => {
+          this.$message.success("新增成功");
+          this.$router.push({
+            name: "productList",
+          });
+        });
+      }
     },
   },
 };

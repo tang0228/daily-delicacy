@@ -12,5 +12,8 @@ export default {
     },
     addProduct(params) {
         return ins.post("/products/add", params)
+    },
+    getProductDetail(id) {
+        return ins.get("/products/" + id);
     }
 }

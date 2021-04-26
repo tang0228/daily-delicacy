@@ -26,7 +26,7 @@
             >{{ c.name }}
             </a-select-option>
         </a-select>
-        <a-select v-model="form.c_items" placeholder="请选择子类目">
+        <a-select v-model="form.c_item" placeholder="请选择子类目">
           <a-select-option
             v-for="c in categoryItems"
             :key="c"
@@ -48,7 +48,7 @@
         </a-select>
       </a-form-model-item>
       <a-form-model-item :wrapper-col="{ span: 20 }">
-        <a-button @click="next">下一步</a-button>
+        <a-button type="primary" @click="next">下一步</a-button>
       </a-form-model-item>
     </a-form-model>
   </div>
