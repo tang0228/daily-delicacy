@@ -15,8 +15,6 @@ const roleRoutes = {
     ]
 }
 
-
-
 export default function getRoutes(role, routes) {
     const allowsRoutes = roleRoutes[role].map(route => route.name);
     const resultRoutes = routes.filter(r => {

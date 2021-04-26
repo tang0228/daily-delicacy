@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <Menu />
+    <Menu :key="key"/>
 
     <Header />
 
@@ -14,6 +14,16 @@ import Menu from "@/components/Menu.vue";
 import Header from "@/components/Header.vue";
 import { mapState } from "vuex";
 export default {
+  data() {
+    return {
+      key: new Date().getTime()
+    }
+  },
+  watch: {
+    $route() {
+      this.key = new Date().getTime();
+    }
+  },
   components: {
     Menu,
     Header,

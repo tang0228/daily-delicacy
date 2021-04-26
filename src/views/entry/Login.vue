@@ -78,6 +78,7 @@ export default {
               this.$message.success(resp.msg);
               // 并且跳到首页
               this.$router.push("/", () => {});
+              
               this.$store.dispatch("user/setUser", resp.data);
             },
             (err) => {

@@ -28,7 +28,7 @@ export const asyncRouterMap = [
             {
                 path: "add",
                 name: "productAdd",
-                component: () => import("@/views/product/ProductAdd.vue"),
+                component: () => import("@/components/productAdd/ProductAdd.vue"),
                 meta: {
                     title: "商品新增",
                     hidden: false,
@@ -39,7 +39,7 @@ export const asyncRouterMap = [
             {
                 path: "edit/:id",
                 name: "productEdit",
-                component: () => import("@/views/product/ProductAdd.vue"),
+                component: () => import("@/components/productAdd/ProductAdd.vue"),
                 meta: {
                     title: "编辑商品",
                     hidden: true,
